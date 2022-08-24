@@ -36,15 +36,16 @@ def solution(n, s, a, b, fares):
         fare_graph[c].append([d,f])
         fare_graph[d].append([c,f])
     
-    visited, s_dis_list = init_list(s, n)
-    s_dis_list = dijkstra(visited, s_dis_list, s, n)
+    visit, s_list = init_list(s, n)
+    s_list = dijkstra(visit, s_list, s, n)
+    visit, a_list = init_list(a, n)
+    a_list = dijkstra(visit, a_list, a, n)
+    visit, b_list = init_list(b, n)
+    b_list = dijkstra(visit, b_list, b, n)
     
     answer = inf
     for i in range(1,n+1):
-        mid_dis = s_dis_list[i]
-        mid_visited, mid_dis_list = init_list(i, n)
-        mid_dis_list = dijkstra(mid_visited, mid_dis_list, i, n)
-        if answer > (mid_dis + mid_dis_list[a] + mid_dis_list[b]):
-            answer = (mid_dis + mid_dis_list[a] + mid_dis_list[b])
+        if answer > s_list[i] + a_list[i] + b_list[i]:
+            answer = s_list[i] + a_list[i] + b_list[i]
     
     return answer
